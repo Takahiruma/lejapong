@@ -1,0 +1,28 @@
+@use '../../assets/Common.scss' as c;
+
+
+.page-container {
+  padding: 2rem;
+  max-width: 1280px;
+  margin: 0 auto;
+  background-color: #bb3e03;
+
+  .cards-grid {
+    display: grid;
+    gap: 16px;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+}
+
+.box {
+  background-color: rgb(187, 62, 3);
+  border-radius: 12px;
+  padding: 2em;
+  box-shadow: 0 6px 18px rgba(51, 44, 36, 0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 25px rgba(62, 58, 57, 0.15);
+  }
+}

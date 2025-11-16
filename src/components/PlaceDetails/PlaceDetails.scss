@@ -1,0 +1,16 @@
+@use '../../assets/Common.scss' as c;
+
+
+.place-details {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.place-details-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}

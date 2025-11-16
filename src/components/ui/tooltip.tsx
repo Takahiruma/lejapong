@@ -1,46 +1,72 @@
-import { Tooltip as ChakraTooltip, Portal } from "@chakra-ui/react"
-import * as React from "react"
+import * as React from "react";
+import Tooltip from "@mui/material/Tooltip";
+import Popper from "@mui/material/Popper";
+import Fade from "@mui/material/Fade";
+import { useTheme } from "@mui/material/styles";
 
-export interface TooltipProps extends ChakraTooltip.RootProps {
-  showArrow?: boolean
-  portalled?: boolean
-  portalRef?: React.RefObject<HTMLElement | null>
-  content: React.ReactNode
-  contentProps?: ChakraTooltip.ContentProps
-  disabled?: boolean
+export interface TooltipProps {
+  showArrow?: boolean;
+  content: React.ReactNode;
+  children: React.ReactElement;
+  disabled?: boolean;
+  placement?: "bottom" | "top" | "left" | "right";
+  portalled?: boolean;
+  portalContainer?: HTMLElement | null;
 }
 
-export const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
-  function Tooltip(props, ref) {
-    const {
-      showArrow,
+export const CustomTooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
+  function CustomTooltip(
+    {
+      showArrow = false,
       children,
-      disabled,
-      portalled = true,
+      disabled = false,
       content,
-      contentProps,
-      portalRef,
+      placement = "bottom",
+      portalled = true,
+      portalContainer = null,
       ...rest
-    } = props
+    },
+    ref
+  ) {
+    const theme = useTheme();
 
-    if (disabled) return children
+    if (disabled) return children;
 
     return (
-      <ChakraTooltip.Root {...rest}>
-        <ChakraTooltip.Trigger asChild>{children}</ChakraTooltip.Trigger>
-        <Portal disabled={!portalled} container={portalRef}>
-          <ChakraTooltip.Positioner>
-            <ChakraTooltip.Content ref={ref} {...contentProps}>
-              {showArrow && (
-                <ChakraTooltip.Arrow>
-                  <ChakraTooltip.ArrowTip />
-                </ChakraTooltip.Arrow>
-              )}
-              {content}
-            </ChakraTooltip.Content>
-          </ChakraTooltip.Positioner>
-        </Portal>
-      </ChakraTooltip.Root>
-    )
-  },
-)
+      <Tooltip
+        title={
+          <React.Fragment>
+            {content}
+            {showArrow ? (
+              <span
+                style={{
+                  position: "absolute",
+                  width: 0,
+                  height: 0,
+                  borderLeft: "6px solid transparent",
+                  borderRight: "6px solid transparent",
+                  borderTop: placement === "bottom" ? `6px solid ${theme.palette.background.paper}` : undefined,
+                  borderBottom: placement === "top" ? `6px solid ${theme.palette.background.paper}` : undefined,
+                  bottom: placement === "bottom" ? 0 : undefined,
+                  top: placement === "top" ? 0 : undefined,
+                  left: "50%",
+                  transform: "translateX(-50%)",
+                }}
+              />
+            ) : null}
+          </React.Fragment>
+        }
+        arrow={showArrow}
+        placement={placement}
+        PopperComponent={(props) =>
+          portalled ? <Popper {...props} container={portalContainer || undefined} /> : <Popper {...props} />
+        }
+        TransitionComponent={Fade}
+        {...rest}
+        ref={ref}
+      >
+        {children}
+      </Tooltip>
+    );
+  }
+);

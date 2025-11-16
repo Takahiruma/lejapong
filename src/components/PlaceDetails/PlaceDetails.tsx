@@ -7,7 +7,7 @@ import { Place } from '../../models/Place';
 const STORAGE_KEY_BASE = "placesData";
 
 const PlaceDetails: React.FC = () => {
-  const { name } = useParams<{ name: string }>();
+  const { id } = useParams<{ id: string }>();
   const [place, setPlace] = useState<Place | null>(null);
   const [loading, setLoading] = useState(true);
   const browserLang = navigator.language.startsWith("fr") ? "fr" : "en";
@@ -18,28 +18,19 @@ const PlaceDetails: React.FC = () => {
     setLoading(true);
     const stored = localStorage.getItem(STORAGE_KEY);
 
-    if (stored && name) {
+    if (stored && id) {
       const places: Place[] = JSON.parse(stored);
 
-      const normalizeName = (str: string) =>
-        str
-          .normalize("NFD")
-          .replace(/[\u0300-\u036f]/g, "")
-          .toLowerCase()
-          .replace(/\s+/g, '-')
-          .trim();
+      const decodedId = decodeURIComponent(id);
 
-      const decodedName = decodeURIComponent(name);
-      const normalizedDecodedName = normalizeName(decodedName);
-
-      const found = places.find(p => normalizeName(p.name) === normalizedDecodedName);
+      const found = places.find(p => p.id === decodedId);
 
       setPlace(found || null);
     } else {
       setPlace(null);
     }
     setLoading(false);
-  }, [name, STORAGE_KEY]);
+  }, [id, STORAGE_KEY]);
 
   if (loading) {
     return (

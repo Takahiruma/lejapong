@@ -1,0 +1,54 @@
+body, #root {
+  background-color: #bb3e03;
+  color: #222;
+  font-family: 'Noto Sans JP', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+#root {
+  max-width: 1280px;
+  margin: 2rem auto;
+  padding: 2rem;
+  border-radius: 12px;
+  background: #bb3e03;
+  box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
+}
+
+h2, h6, .MuiTypography-body2 {
+  font-weight: 600;
+  color: #3d3a38;
+}
+
+.MuiTypography-body2 {
+  color: #6f6b67;
+}
+
+.MuiButton-root, .MuiSelect-root {
+  border-radius: 8px;
+  background-color: #b8c9d1;
+  color: #3e4c50;
+  transition: background-color 0.3s ease;
+}
+
+.MuiButton-root:hover, .MuiSelect-root:hover {
+  background-color: #93aabd;
+}
+
+.MuiTextField-root {
+  background-color: #fffdfa;
+  border-radius: 8px;
+}
+
+a, .MuiLink-root {
+  color: #bb3e03;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+
+.MuiIconButton-root {
+  color: #bb3e03;
+}
+
+.MuiIconButton-root:hover {
+  color: #dd5522;
+}

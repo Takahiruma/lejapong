@@ -1,0 +1,16 @@
+@use '../../assets/Common.scss' as c;
+
+.filter-panel {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 16px;
+
+  .language-toggle {
+    min-width: 60px;
+  }
+
+  .filter-control {
+    min-width: 150px;
+  }
+}
